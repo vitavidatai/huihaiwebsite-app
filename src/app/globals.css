@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #FAF9F6;
+    color: #2D2B2A;
+  }
+  
+  body {
+    background-color: #FAF9F6;
+    color: #2D2B2A;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Warm Muji/Aesop Glass Panel */
+.warm-panel {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid #E5E0D8;
+}
+
+/* Subtly textured background grid */
+.warm-grid-pattern {
+  background-image: radial-gradient(rgba(120, 115, 110, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
