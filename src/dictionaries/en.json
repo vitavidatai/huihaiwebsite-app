@@ -166,7 +166,17 @@
     "validityLabel": "Compliance Status",
     "patentTag": "Intellectual Property & R&D",
     "patentTitle": "Over 30 Independent Patents & PCT Applications",
-    "patentDesc": "Suzhou Huihai Sanitary Products Co., Ltd. holds more than 30 national patents (including issued utility model patents, appearance design patents, and international PCT applications)."
+    "patentDesc": "Suzhou Huihai Sanitary Products Co., Ltd. holds more than 30 national patents (including issued utility model patents, appearance design patents, and international PCT applications).",
+    "representativePatentsTitle": "Representative Patents",
+    "representativePatentsSubtitle": "Featured patent specifications and utility model designs for electrostatic dusters.",
+    "auditReportsTitle": "Audit Reports",
+    "auditReportsSubtitle": "Official third-party social responsibility, labor standard, and ethical trade audit documentation.",
+    "smetaTitle": "SMETA Audit Report",
+    "smetaDesc": "Sedex ZAA600077028 4-Pillar Audit covering Labor Standards, Health & Safety, Environment, and Business Ethics.",
+    "caprTitle": "CAPR Report",
+    "caprDesc": "SMETA Corrective Action Plan Report (CAPR) verification for continuous social & environmental compliance.",
+    "btnPreview": "Preview",
+    "btnDownload": "Download"
   },
   "contact": {
     "tagline": "Direct Export Support",

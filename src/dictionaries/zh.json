@@ -166,7 +166,17 @@
     "validityLabel": "合规状态",
     "patentTag": "知识产权与研发成果",
     "patentTitle": "拥有 30 余项自主专利及 PCT 国际申请",
-    "patentDesc": "苏州汇海卫生用品有限公司拥有30多项国家专利（包括已获授权的实用新型专利、外观设计专利及PCT国际专利申请）。"
+    "patentDesc": "苏州汇海卫生用品有限公司拥有30多项国家专利（包括已获授权的实用新型专利、外观设计专利及PCT国际专利申请）。",
+    "representativePatentsTitle": "代表专利",
+    "representativePatentsSubtitle": "精选静电除尘掸及生产工艺专利技术证书。",
+    "auditReportsTitle": "审计报告",
+    "auditReportsSubtitle": "Sedex 官方授权第三方机构出具的商业道德、劳工标准与社会责任审计文件。",
+    "smetaTitle": "SMETA 审计报告",
+    "smetaDesc": "Sedex ZAA600077028 四大支柱审核，涵盖劳工标准、健康与安全、环境及商业道德。",
+    "caprTitle": "CAPR 纠正措施报告",
+    "caprDesc": "SMETA 纠正措施计划报告（CAPR）复核，验证社会责任与环境持续合规。",
+    "btnPreview": "预览",
+    "btnDownload": "下载"
   },
   "contact": {
     "tagline": "出口商务直连支持",

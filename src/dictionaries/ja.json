@@ -166,7 +166,17 @@
     "validityLabel": "コンプライアンス状況",
     "patentTag": "知的財産権と研究開発成果",
     "patentTitle": "30以上の独自特許およびPCT国際出願を所有",
-    "patentDesc": "蘇州汇海衛生用品有限公司は、30以上の国家特許（授与された実用新案、意匠権、およびPCT国際出願）を保持しています。"
+    "patentDesc": "蘇州汇海衛生用品有限公司は、30以上の国家特許（授与された実用新案、意匠権、およびPCT国際出願）を保持しています。",
+    "representativePatentsTitle": "代表特許",
+    "representativePatentsSubtitle": "静電気ダスターおよび製造プロセスの主要特許証書。",
+    "auditReportsTitle": "監査レポート",
+    "auditReportsSubtitle": "Sedex 認定機関による労働基準・環境・ビジネス倫理の第三者監査報告書。",
+    "smetaTitle": "SMETA 監査レポート",
+    "smetaDesc": "Sedex ZAA600077028 4柱監査（労働基準、健康と安全、環境、ビジネス倫理）。",
+    "caprTitle": "CAPR 是正措置レポート",
+    "caprDesc": "社会・環境責任の持続的コンプライアンスを検証する是正措置計画報告（CAPR）。",
+    "btnPreview": "プレビュー",
+    "btnDownload": "ダウンロード"
   },
   "contact": {
     "tagline": "海外営業ダイレクト対応",
