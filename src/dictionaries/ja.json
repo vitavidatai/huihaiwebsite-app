@@ -176,7 +176,9 @@
     "caprTitle": "CAPR 是正措置レポート",
     "caprDesc": "社会・環境責任の持続的コンプライアンスを検証する是正措置計画報告（CAPR）。",
     "btnPreview": "プレビュー",
-    "btnDownload": "ダウンロード"
+    "btnDownload": "ダウンロード",
+    "btnDownloadPdf": "PDFをダウンロード",
+    "patentNote": "代表的な特許を上に示しています。その他の特許証書はご要望に応じて提供いたします。"
   },
   "contact": {
     "tagline": "海外営業ダイレクト対応",

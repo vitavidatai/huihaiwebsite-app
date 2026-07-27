@@ -176,7 +176,9 @@
     "caprTitle": "CAPR 纠正措施报告",
     "caprDesc": "SMETA 纠正措施计划报告（CAPR）复核，验证社会责任与环境持续合规。",
     "btnPreview": "预览",
-    "btnDownload": "下载"
+    "btnDownload": "下载",
+    "btnDownloadPdf": "下载 PDF",
+    "patentNote": "以上为代表性专利展示，更多专利证书可根据需求提供。"
   },
   "contact": {
     "tagline": "出口商务直连支持",

@@ -2,19 +2,22 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Download, CheckCircle2, ZoomIn, X, Eye, FileText, ArrowUpRight } from 'lucide-react';
+import { Download, CheckCircle2, ZoomIn, X, Eye, ExternalLink } from 'lucide-react';
 import { ClientLayout } from '@/components/layout/client-layout';
 import { getDictionary, Language } from '@/lib/i18n';
 import { ProductGalleryModal, GalleryImage } from '@/components/ui/product-gallery-modal';
 
 interface CertItem {
   id: string;
+  type: 'image' | 'pdf';
   title: Record<Language, string>;
   issuingBody: Record<Language, string>;
   scope: Record<Language, string>;
   validity: string;
   imageSrc: string;
   imageAlt: string;
+  pdfSrc?: string;
+  pdfFileName?: string;
 }
 
 interface PatentItem {
@@ -22,14 +25,6 @@ interface PatentItem {
   title: Record<Language, string>;
   imageSrc: string;
   imageAlt: string;
-}
-
-interface AuditReportItem {
-  id: string;
-  title: Record<Language, string>;
-  description: Record<Language, string>;
-  fileSrc: string;
-  fileName: string;
 }
 
 export default function CertificatesPage() {
@@ -44,6 +39,7 @@ export default function CertificatesPage() {
   const certificateItems: CertItem[] = [
     {
       id: 'iso-9001',
+      type: 'image',
       title: {
         en: 'ISO 9001:2015 Quality Management System',
         zh: 'ISO 9001:2015 质量管理体系认证',
@@ -65,6 +61,7 @@ export default function CertificatesPage() {
     },
     {
       id: 'smeta-audit',
+      type: 'pdf',
       title: {
         en: 'SMETA Ethical Trade Audit',
         zh: 'SMETA 商业道德贸易审计报告',
@@ -83,9 +80,12 @@ export default function CertificatesPage() {
       validity: 'SMETA Version 6.1 Compliant',
       imageSrc: '/images/certificates/smeta-audit-report.png',
       imageAlt: 'SMETA Ethical Trade Audit Report',
+      pdfSrc: '/docs/SMETA_ZAA600077028.pdf',
+      pdfFileName: 'SMETA_ZAA600077028.pdf',
     },
     {
       id: 'smeta-capr',
+      type: 'pdf',
       title: {
         en: 'SMETA Corrective Action Plan (CAPR)',
         zh: 'SMETA 纠正措施计划 (CAPR) 报告',
@@ -104,6 +104,8 @@ export default function CertificatesPage() {
       validity: 'SMETA CAPR Verified',
       imageSrc: '/images/certificates/smeta-capr-report.png',
       imageAlt: 'SMETA Corrective Action Plan (CAPR) Report',
+      pdfSrc: '/docs/CAPR_ZAA600077028.pdf',
+      pdfFileName: 'CAPR_ZAA600077028.pdf',
     },
   ];
 
@@ -150,39 +152,6 @@ export default function CertificatesPage() {
     },
   ];
 
-  const auditReports: AuditReportItem[] = [
-    {
-      id: 'smeta-report',
-      title: {
-        en: 'SMETA Audit Report',
-        zh: 'SMETA 审计报告',
-        ja: 'SMETA 監査レポート',
-      },
-      description: {
-        en: 'Sedex ZAA600077028 4-Pillar Audit covering Labor Standards, Health & Safety, Environment, and Business Ethics.',
-        zh: 'Sedex ZAA600077028 四大支柱审核，涵盖劳工标准、健康与安全、环境及商业道德。',
-        ja: 'Sedex ZAA600077028 4柱監査（労働基準、健康と安全、環境、ビジネス倫理）。',
-      },
-      fileSrc: '/docs/SMETA_ZAA600077028.pdf',
-      fileName: 'SMETA_ZAA600077028.pdf',
-    },
-    {
-      id: 'capr-report',
-      title: {
-        en: 'CAPR Report',
-        zh: 'CAPR 纠正措施报告',
-        ja: 'CAPR 是正措置レポート',
-      },
-      description: {
-        en: 'SMETA Corrective Action Plan Report (CAPR) verification for continuous social and environmental compliance.',
-        zh: 'SMETA 纠正措施计划报告（CAPR）复核，验证社会责任与环境持续合规。',
-        ja: '社会・環境責任の持続的コンプライアンスを検証する是正措置計画報告（CAPR）。',
-      },
-      fileSrc: '/docs/CAPR_ZAA600077028.pdf',
-      fileName: 'CAPR_ZAA600077028.pdf',
-    },
-  ];
-
   return (
     <ClientLayout>
       {(lang: Language) => {
@@ -224,28 +193,49 @@ export default function CertificatesPage() {
                     >
                       <div className="space-y-4">
                         {/* Clickable Image Container */}
-                        <div
-                          onClick={() =>
-                            setActiveModalCert({
-                              src: cert.imageSrc,
-                              title: titleText,
-                              validity: cert.validity,
-                            })
-                          }
-                          className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden border border-[#E5E0D8] bg-[#FAF9F6] p-2 flex items-center justify-center cursor-pointer group/img"
-                          title="Click to view full size"
-                        >
-                          <img
-                            src={cert.imageSrc}
-                            alt={cert.imageAlt}
-                            className="w-full h-full object-contain rounded-xl shadow-sm group-hover/img:scale-102 transition-transform duration-300"
-                          />
-                          {/* Hover Overlay Icon */}
-                          <div className="absolute inset-0 bg-[#2D2B2A]/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white font-mono text-xs backdrop-blur-[2px]">
-                            <ZoomIn className="w-5 h-5 text-white" />
-                            <span>View Full Size</span>
+                        {cert.type === 'pdf' && cert.pdfSrc ? (
+                          <a
+                            href={cert.pdfSrc}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden border border-[#E5E0D8] bg-[#FAF9F6] p-2 flex items-center justify-center cursor-pointer group/img block"
+                            title="Click to view full PDF report in a new tab"
+                          >
+                            <img
+                              src={cert.imageSrc}
+                              alt={cert.imageAlt}
+                              className="w-full h-full object-contain rounded-xl shadow-sm group-hover/img:scale-102 transition-transform duration-300"
+                            />
+                            {/* Hover Overlay Icon */}
+                            <div className="absolute inset-0 bg-[#2D2B2A]/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white font-mono text-xs backdrop-blur-[2px]">
+                              <ExternalLink className="w-5 h-5 text-white" />
+                              <span>View PDF Report</span>
+                            </div>
+                          </a>
+                        ) : (
+                          <div
+                            onClick={() =>
+                              setActiveModalCert({
+                                src: cert.imageSrc,
+                                title: titleText,
+                                validity: cert.validity,
+                              })
+                            }
+                            className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden border border-[#E5E0D8] bg-[#FAF9F6] p-2 flex items-center justify-center cursor-pointer group/img"
+                            title="Click to view full size"
+                          >
+                            <img
+                              src={cert.imageSrc}
+                              alt={cert.imageAlt}
+                              className="w-full h-full object-contain rounded-xl shadow-sm group-hover/img:scale-102 transition-transform duration-300"
+                            />
+                            {/* Hover Overlay Icon */}
+                            <div className="absolute inset-0 bg-[#2D2B2A]/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white font-mono text-xs backdrop-blur-[2px]">
+                              <ZoomIn className="w-5 h-5 text-white" />
+                              <span>View Full Size</span>
+                            </div>
                           </div>
-                        </div>
+                        )}
 
                         {/* Card Information */}
                         <div className="space-y-2">
@@ -280,30 +270,53 @@ export default function CertificatesPage() {
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="flex gap-2">
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setActiveModalCert({
-                              src: cert.imageSrc,
-                              title: titleText,
-                              validity: cert.validity,
-                            })
-                          }
-                          className="flex-1 py-2.5 px-3 text-xs font-semibold text-[#2D2B2A] bg-[#F5F2EB] hover:bg-[#2D2B2A] hover:text-white rounded-xl transition-all flex items-center justify-center gap-1.5"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>{dict.certificates.btnPreview || 'Preview'}</span>
-                        </button>
+                      {cert.type === 'pdf' && cert.pdfSrc ? (
+                        <div className="flex gap-2">
+                          <a
+                            href={cert.pdfSrc}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 py-2.5 px-3 text-xs font-semibold text-[#2D2B2A] bg-[#F5F2EB] hover:bg-[#2D2B2A] hover:text-white rounded-xl transition-all flex items-center justify-center gap-1.5 border border-[#E5E0D8]"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>{dict.certificates.btnPreview || 'Preview'}</span>
+                          </a>
 
-                        <Link
-                          href={`/contact?certificate=${encodeURIComponent(titleText)}`}
-                          className="flex-1 py-2.5 px-3 text-xs font-semibold text-white bg-[#2D2B2A] hover:bg-[#3D3A39] rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5"
-                        >
-                          <Download className="w-3.5 h-3.5 text-[#F5F2EB]" />
-                          <span>Inquire</span>
-                        </Link>
-                      </div>
+                          <a
+                            href={cert.pdfSrc}
+                            download={cert.pdfFileName}
+                            className="flex-1 py-2.5 px-3 text-xs font-semibold text-white bg-[#2D2B2A] hover:bg-[#3D3A39] rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5"
+                          >
+                            <Download className="w-3.5 h-3.5 text-[#F5F2EB]" />
+                            <span>{dict.certificates.btnDownloadPdf || 'Download PDF'}</span>
+                          </a>
+                        </div>
+                      ) : (
+                        <div className="flex gap-2">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setActiveModalCert({
+                                src: cert.imageSrc,
+                                title: titleText,
+                                validity: cert.validity,
+                              })
+                            }
+                            className="flex-1 py-2.5 px-3 text-xs font-semibold text-[#2D2B2A] bg-[#F5F2EB] hover:bg-[#2D2B2A] hover:text-white rounded-xl transition-all flex items-center justify-center gap-1.5"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>{dict.certificates.btnPreview || 'Preview'}</span>
+                          </button>
+
+                          <Link
+                            href={`/contact?certificate=${encodeURIComponent(titleText)}`}
+                            className="flex-1 py-2.5 px-3 text-xs font-semibold text-white bg-[#2D2B2A] hover:bg-[#3D3A39] rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5"
+                          >
+                            <Download className="w-3.5 h-3.5 text-[#F5F2EB]" />
+                            <span>Inquire</span>
+                          </Link>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
@@ -378,81 +391,15 @@ export default function CertificatesPage() {
                   {dict.certificates.patentDesc}
                 </p>
               </div>
+
+              {/* Professional Note below Representative Patents */}
+              <p className="text-center text-xs text-[#8C8883] font-mono tracking-wide pt-2 italic">
+                {dict.certificates.patentNote ||
+                  'Representative patents are shown above. Additional patent certificates are available upon request.'}
+              </p>
             </div>
 
-            {/* 3. Audit Reports Section */}
-            <div className="space-y-8 pt-4 border-t border-[#E5E0D8]">
-              <div className="space-y-2 max-w-3xl">
-                <span className="text-xs font-mono font-semibold text-[#4A6B82] uppercase tracking-wider">
-                  Sedex Compliance
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-[#2D2B2A]">
-                  {dict.certificates.auditReportsTitle || 'Audit Reports'}
-                </h2>
-                <p className="text-sm text-[#5E5A56] leading-relaxed">
-                  {dict.certificates.auditReportsSubtitle ||
-                    'Official third-party social responsibility, labor standard, and ethical trade audit documentation.'}
-                </p>
-              </div>
-
-              {/* Downloadable PDF Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                {auditReports.map((report) => {
-                  const title = report.title[lang] || report.title.en;
-                  const desc = report.description[lang] || report.description.en;
-
-                  return (
-                    <div
-                      key={report.id}
-                      className="bg-white rounded-3xl border border-[#E5E0D8] p-6 shadow-soft hover:shadow-elevated-warm transition-all duration-300 flex flex-col justify-between space-y-6 group"
-                    >
-                      <div className="space-y-4">
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="w-12 h-12 rounded-2xl bg-[#FFF5F5] border border-[#FFE0E0] text-[#D9383A] flex items-center justify-center shrink-0">
-                            <FileText className="w-6 h-6" />
-                          </div>
-                          <span className="text-[10px] font-mono font-medium px-2.5 py-1 bg-[#F5F2EB] text-[#5E5A56] rounded-md uppercase border border-[#E5E0D8]">
-                            PDF DOCUMENT
-                          </span>
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <h3 className="text-lg font-bold text-[#2D2B2A] group-hover:text-[#4A6B82] transition-colors">
-                            {title}
-                          </h3>
-                          <p className="text-xs text-[#5E5A56] leading-relaxed">
-                            {desc}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                        <a
-                          href={report.fileSrc}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 py-2.5 px-4 text-xs font-semibold text-[#2D2B2A] bg-[#F5F2EB] hover:bg-[#2D2B2A] hover:text-white rounded-xl transition-all flex items-center justify-center gap-2 border border-[#E5E0D8]"
-                        >
-                          <Eye className="w-4 h-4" />
-                          <span>{dict.certificates.btnPreview || 'Preview'}</span>
-                        </a>
-
-                        <a
-                          href={report.fileSrc}
-                          download={report.fileName}
-                          className="flex-1 py-2.5 px-4 text-xs font-semibold text-white bg-[#2D2B2A] hover:bg-[#3D3A39] rounded-xl shadow-sm transition-all flex items-center justify-center gap-2"
-                        >
-                          <Download className="w-4 h-4 text-[#F5F2EB]" />
-                          <span>{dict.certificates.btnDownload || 'Download'}</span>
-                        </a>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* General Certificate Lightbox Modal */}
+            {/* ISO 9001 Lightbox Modal */}
             {activeModalCert && (
               <div
                 className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#2D2B2A]/85 backdrop-blur-md transition-all duration-300"

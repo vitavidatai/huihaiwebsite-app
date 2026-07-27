@@ -176,7 +176,9 @@
     "caprTitle": "CAPR Report",
     "caprDesc": "SMETA Corrective Action Plan Report (CAPR) verification for continuous social & environmental compliance.",
     "btnPreview": "Preview",
-    "btnDownload": "Download"
+    "btnDownload": "Download",
+    "btnDownloadPdf": "Download PDF",
+    "patentNote": "Representative patents are shown above. Additional patent certificates are available upon request."
   },
   "contact": {
     "tagline": "Direct Export Support",
