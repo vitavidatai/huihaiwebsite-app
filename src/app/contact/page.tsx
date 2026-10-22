@@ -49,15 +49,35 @@ function ContactFormContent({ lang }: { lang: Language }) {
     }
   }, [searchParams]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (isSubmitting) return;
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1000);
-  };
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch("/api/inquiry", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send inquiry");
+    }
+
+    setIsSubmitted(true);
+  } catch (error) {
+    console.error("Inquiry submission failed:", error);
+    alert("Failed to send your inquiry. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
